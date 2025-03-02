@@ -49,7 +49,8 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "cinttypes": "cpp",
-    "typeinfo": "cpp"
+    "typeinfo": "cpp",
+    "usb_host.h": "c"
   },
   "C_Cpp.intelliSenseEngine": "default",
   "editor.formatOnSave": true,

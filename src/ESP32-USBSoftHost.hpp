@@ -8,7 +8,7 @@
 #if CONFIG_IDF_TARGET_ESP32C3 || defined ESP32C3
 #define BLINK_GPIO 18
 #elif CONFIG_IDF_TARGET_ESP32S2 || defined ESP32S2
-#define BLINK_GPIO 2  //19 // 9 // 2
+#define BLINK_GPIO 2 // 19 // 9 // 2
 #elif CONFIG_IDF_TARGET_ESP32S3
 #define BLINK_GPIO LED_BUILTIN
 #else
@@ -17,10 +17,10 @@
 #endif
 
 // include the modified version from Dmitry Samsonov
-extern "C" {
+extern "C"
+{
 #include "usb_host.h"
 }
-
 
 struct USBMessage;
 
@@ -40,7 +40,6 @@ typedef struct
 // task ticker
 typedef void (*ontick_t)();
 
-
 void Default_USB_DetectCB(uint8_t usbNum, void *dev);
 void Default_USB_DataCB(uint8_t usbNum, uint8_t byte_depth, uint8_t *data, uint8_t data_len);
 void Default_USB_ConfigDescCB(uint8_t ref, int cfgCount, void *lcfg, size_t len);
@@ -52,7 +51,7 @@ void Default_USB_EPDescCb(uint8_t ref, int cfgCount, int epdCount, void *epd, si
 
 typedef struct
 {
-  int type;  // the type of timer's event
+  int type; // the type of timer's event
   int timer_group;
   int timer_idx;
   uint64_t timer_counter_value;
@@ -61,12 +60,10 @@ static xQueueHandle timer_queue = NULL;
 
 #endif
 
-
 void IRAM_ATTR timer_group0_isr(void *para);
 
-
-
-class USB_SOFT_HOST {
+class USB_SOFT_HOST
+{
 public:
   bool init(printcb_t onDataCB = Default_USB_DataCB, ontick_t onTickCB = nullptr);
   void setPrintCb(printcb_t onDataCB);
@@ -78,10 +75,12 @@ public:
 
   void setTaskTicker(ontick_t onTickCB);
   void setActivityBlinker(onledblinkcb_t onActivityCB);
-  void setTaskPriority(uint8_t p) {
+  void setTaskPriority(uint8_t p)
+  {
     priority = p;
   };
-  void setTaskCore(uint8_t c) {
+  void setTaskCore(uint8_t c)
+  {
     core = c;
   }
   void setBlinkPin(gpio_num_t pin_number);
@@ -104,6 +103,5 @@ private:
   static void (*ticker)();
   static void TimerTask(void *arg);
 };
-
 
 extern USB_SOFT_HOST USH;
